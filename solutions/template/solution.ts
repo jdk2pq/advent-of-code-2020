@@ -1,25 +1,30 @@
-import { read, position } from "promise-path";
-import { reportGenerator } from "../../util";
+import { read } from 'promise-path'
+import { reportGenerator } from '../../util'
 
-const report = reportGenerator(__filename);
-const fromHere = position(__dirname);
+const report = reportGenerator(__filename)
 
 export async function run(day: string) {
   const input = (
-    await read(fromHere(`solutions/${day}` + "/input.txt"), "utf8")
-  ).trim();
+    await read(`solutions/${day}/input.txt`, 'utf8')
+  ).trim()
 
-  await solveForFirstStar(input);
-  await solveForSecondStar(input);
+  const testInput = ''
+  const testInputAsArray = testInput.split('\n')
+
+  const inputAsArray = input.split('\n')
+
+  await solveForFirstStar(testInput, testInputAsArray, true)
+  await solveForFirstStar(input, inputAsArray, false)
+  await solveForSecondStar(testInput, testInputAsArray, true)
+  await solveForSecondStar(input, inputAsArray, false)
 }
 
-async function solveForFirstStar(input) {
-  const solution = "UNSOLVED";
-  report("Input:", input);
-  report("Solution 1:", solution);
+async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean) {
+  const solution = 'UNSOLVED'
+  report(`Solution 1${test ? ' (for test input)' : ''}:`, solution)
 }
 
-async function solveForSecondStar(input) {
-  const solution = "UNSOLVED";
-  report("Solution 2:", solution);
+async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean) {
+  const solution = 'UNSOLVED'
+  report(`Solution 2${test ? ' (for test input)' : ''}:`, solution)
 }
