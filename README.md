@@ -5,7 +5,7 @@ Advent of Code Template using Node TS for Current Year.
 Forked from [johnbeech's repo](https://github.com/johnbeech/advent-of-code-nodejs-template)
 
 ## Solutions
-http://jakekenneally.com/advent-of-code-2020/solutions/
+[http://jakekenneally.com/advent-of-code-2020/solutions/](http://jakekenneally.com/advent-of-code-2020/solutions/)
 
 ## Setup
 
