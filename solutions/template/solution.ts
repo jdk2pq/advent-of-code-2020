@@ -13,18 +13,18 @@ export async function run(day: string) {
 
   const inputAsArray = input.split('\n')
 
-  await solveForFirstStar(testInput, testInputAsArray, true)
-  await solveForFirstStar(input, inputAsArray, false)
-  await solveForSecondStar(testInput, testInputAsArray, true)
-  await solveForSecondStar(input, inputAsArray, false)
+  await solveForFirstStar(testInput, testInputAsArray, true, true)
+  await solveForFirstStar(input, inputAsArray, false, false)
+  await solveForSecondStar(testInput, testInputAsArray, true, true)
+  await solveForSecondStar(input, inputAsArray, false, false)
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean) {
+async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
   const solution = 'UNSOLVED'
   report(`Solution 1${test ? ' (for test input)' : ''}:`, solution)
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean) {
+async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
   const solution = 'UNSOLVED'
   report(`Solution 2${test ? ' (for test input)' : ''}:`, solution)
 }
