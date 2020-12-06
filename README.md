@@ -4,6 +4,9 @@ Advent of Code Template using Node TS for Current Year.
 
 Forked from [johnbeech's repo](https://github.com/johnbeech/advent-of-code-nodejs-template)
 
+## Solutions
+http://jakekenneally.com/advent-of-code-2020/solutions/
+
 ## Setup
 
 If using the Advent of Code Template repo; click [**`Use this template`**](https://github.com/MJGTwo/advent-of-code-nodets-template/generate) and set a new repository name.
@@ -25,11 +28,3 @@ If a solution exists for that day, then it will run with basic tests. If a solut
 If you don't have AOCD configured, populate `input.txt` with your solution input from the AOC website, and then start implementing your solution in the new folder for that day.
 
 Once you have calculated a solution, you should manually submit your answer through the website.
-
-## Viewer
-
-A local webserver has been provided to browse the solutions, and optionally create web based visualisations to go with the code.
-
-To start the server run: `yarn webserver` - a new hardcoded index.html will be generated each time you browse the index.
-
-If you enable github pages from your repo settings, and host from the root of the project, you'll be able to access this index and the solutions from the provided hosted URL. Please replace this message with a link to those pages if you do.
