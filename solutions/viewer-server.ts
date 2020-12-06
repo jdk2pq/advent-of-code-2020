@@ -15,7 +15,7 @@ async function generateIndexHTML() {
     .filter((n) => n.indexOf(".ts") === -1 && n.indexOf(".html") === -1)
     .map((solution) => {
       const folder = solution.substr(here.length);
-      return `      <li><a href="/${folder}/viewer.html">${folder}</a></li>`;
+      return `      <li><a href="/advent-of-code-2020/${folder}/viewer.html">${folder}</a></li>`;
     });
 
   const html = `<!DOCTYPE html>
