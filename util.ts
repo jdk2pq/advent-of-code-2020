@@ -22,3 +22,11 @@ export const replaceInFile = async (
   const ashes: string = haystack.replace(search, replace);
   return write(filename, ashes, "utf8");
 };
+
+export const arrToNumberArr = (arr: Array<string>): Array<number> => {
+  return arr.map(num => Number(num))
+}
+
+export const sortNumbers = (arr: Array<number>): Array<number> => {
+  return arr.sort((a, b) => a - b)
+}

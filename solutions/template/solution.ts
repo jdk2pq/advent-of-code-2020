@@ -1,5 +1,5 @@
 import { read } from 'promise-path'
-import { reportGenerator } from '../../util'
+import { arrToNumberArr, reportGenerator, sortNumbers } from '../../util'
 
 const report = reportGenerator(__filename)
 
@@ -20,11 +20,15 @@ export async function run(day: string) {
 }
 
 async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+  console.time('part 1')
   const solution = 'UNSOLVED'
   report(`Solution 1${test ? ' (for test input)' : ''}:`, solution)
+  console.timeEnd('part 1')
 }
 
 async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+  console.time('part 2')
   const solution = 'UNSOLVED'
   report(`Solution 2${test ? ' (for test input)' : ''}:`, solution)
+  console.timeEnd('part 2')
 }
