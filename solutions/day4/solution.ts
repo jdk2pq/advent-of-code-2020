@@ -4,11 +4,10 @@ import { reportGenerator } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
-  const testInput = 'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n' +
+  const testInput =
+    'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n' +
     'byr:1937 iyr:2017 cid:147 hgt:183cm\n' +
     '\n' +
     'iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\n' +
@@ -25,7 +24,8 @@ export async function run(day: string) {
 
   const inputAsArray = input.split('\n')
 
-  const invalidPassports = 'eyr:1972 cid:100\n' +
+  const invalidPassports =
+    'eyr:1972 cid:100\n' +
     'hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926\n' +
     '\n' +
     'iyr:2019\n' +
@@ -39,7 +39,8 @@ export async function run(day: string) {
     'eyr:2038 hcl:74454a iyr:2023\n' +
     'pid:3556412378 byr:2007'
 
-  const validPassports = 'pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980\n' +
+  const validPassports =
+    'pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980\n' +
     'hcl:#623a2f\n' +
     '\n' +
     'eyr:2029 ecl:blu cid:129 byr:1989\n' +
@@ -60,30 +61,33 @@ export async function run(day: string) {
 }
 
 function ensureValidKeys(input) {
-  const requiredData = [
-    'byr',
-    'iyr',
-    'eyr',
-    'hgt',
-    'hcl',
-    'ecl',
-    'pid'
-  ]
+  const requiredData = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
   const passports = input.split('\n\n')
   // console.log({ passports: passports.length })
   return passports.filter(passport => {
-    const passportData = passport.split(/[ \n]/).map(data => data.split(':')[0].trim())
+    const passportData = passport
+      .split(/[ \n]/)
+      .map(data => data.split(':')[0].trim())
     // console.log({ passportData })
     return requiredData.every(requirement => passportData.includes(requirement))
   }).length
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean) {
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean
+) {
   const solution = ensureValidKeys(input)
   report(`Solution 1${test ? ' (for test input)' : ''}:`, solution.toString())
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   const passports = input.split('\n\n')
   if (debug) {
     console.log({ passports: passports.length })
@@ -97,32 +101,74 @@ async function solveForSecondStar(input: string, inputAsArray: Array<any>, test:
     const validData = passportData.every((passportKeyAndData, idx) => {
       const [passportKey, data] = passportKeyAndData.split(':')
       if (passportKey === 'byr') {
-        const check = data.length === 4 && !isNaN(Number(data)) && Number(data) >= 1920 && Number(data) <= 2002
+        const check =
+          data.length === 4 &&
+          !isNaN(Number(data)) &&
+          Number(data) >= 1920 &&
+          Number(data) <= 2002
         if (!check && debug) {
           console.log(`invalid because of ${passportKey}:${data}`)
         }
         return check
       } else if (passportKey === 'iyr') {
-        const check = data.length === 4 && !isNaN(Number(data)) && Number(data) >= 2010 && Number(data) <= 2020
+        const check =
+          data.length === 4 &&
+          !isNaN(Number(data)) &&
+          Number(data) >= 2010 &&
+          Number(data) <= 2020
         if (!check && debug) {
           console.log(`invalid because of ${passportKey}:${data}`)
         }
         return check
       } else if (passportKey === 'eyr') {
-        const check = data.length === 4 && !isNaN(Number(data)) && Number(data) >= 2020 && Number(data) <= 2030
+        const check =
+          data.length === 4 &&
+          !isNaN(Number(data)) &&
+          Number(data) >= 2020 &&
+          Number(data) <= 2030
         if (!check && debug) {
           console.log(`invalid because of ${passportKey}:${data}`)
         }
         return check
       } else if (passportKey === 'hgt') {
-        const check = (data.endsWith('cm') && Number(data.slice(0, 3)) >= 150 && Number(data.slice(0, 3)) <= 193) || (data.endsWith('in') && Number(data.slice(0, 2)) >= 59 && Number(data.slice(0, 2)) <= 76)
+        const check =
+          (data.endsWith('cm') &&
+            Number(data.slice(0, 3)) >= 150 &&
+            Number(data.slice(0, 3)) <= 193) ||
+          (data.endsWith('in') &&
+            Number(data.slice(0, 2)) >= 59 &&
+            Number(data.slice(0, 2)) <= 76)
         if (!check && debug) {
           console.log(`invalid because of ${passportKey}:${data}`)
         }
         return check
       } else if (passportKey === 'hcl') {
-        const matchingCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f']
-        const check = data.startsWith('#') && data.length === 7 && data.slice(1).split('').every(char => matchingCharacters.includes(char))
+        const matchingCharacters = [
+          '0',
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          '0',
+          'a',
+          'b',
+          'c',
+          'd',
+          'e',
+          'f'
+        ]
+        const check =
+          data.startsWith('#') &&
+          data.length === 7 &&
+          data
+            .slice(1)
+            .split('')
+            .every(char => matchingCharacters.includes(char))
         if (!check && debug) {
           console.log(`invalid because of ${passportKey}:${data}`)
         }

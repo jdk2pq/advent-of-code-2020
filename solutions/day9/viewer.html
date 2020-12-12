@@ -29,24 +29,24 @@
     </div>
     <script>
       const app = new Vue({
-        el: "#viewer",
+        el: '#viewer',
         data: () => {
           return {
-            solutionText: "[Loading]",
-            inputText: "[Loading]",
-          };
+            solutionText: '[Loading]',
+            inputText: '[Loading]'
+          }
         },
         computed: {
           solutionTitle() {
-            const parts = (document.location + "").split("/");
-            return parts.reverse()[1];
-          },
+            const parts = (document.location + '').split('/')
+            return parts.reverse()[1]
+          }
         },
         async mounted() {
-          this.solutionText = (await axios.get("./solution.ts")).data;
-          this.inputText = (await axios.get("./input.txt")).data;
-        },
-      });
+          this.solutionText = (await axios.get('./solution.ts')).data
+          this.inputText = (await axios.get('./input.txt')).data
+        }
+      })
     </script>
   </body>
 </html>

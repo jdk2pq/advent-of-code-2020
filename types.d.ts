@@ -1,1 +1,1 @@
-declare module "promise-path";
+declare module 'promise-path'

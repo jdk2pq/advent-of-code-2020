@@ -4,11 +4,10 @@ import { reportGenerator } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
-  const testInput = 'nop +0\n' +
+  const testInput =
+    'nop +0\n' +
     'acc +1\n' +
     'jmp +4\n' +
     'acc +3\n' +
@@ -27,15 +26,22 @@ export async function run(day: string) {
   await solveForSecondStar(input, inputAsArray, false, false)
 }
 
-function readProgram(inputArray: Array<string>, debug: boolean): { acc: number, i: number, loop: boolean } {
+function readProgram(
+  inputArray: Array<string>,
+  debug: boolean
+): { acc: number; i: number; loop: boolean } {
   let acc = 0
   const visitedIndicies: number[] = []
   let i
-  for (i = 0; i < inputArray.length;) {
+  for (i = 0; i < inputArray.length; ) {
     // Found a loop!
     if (visitedIndicies.includes(i)) {
       if (debug) {
-        console.log('Found a loop!', { acc, i, visitedIndicies: visitedIndicies.join(', ') })
+        console.log('Found a loop!', {
+          acc,
+          i,
+          visitedIndicies: visitedIndicies.join(', ')
+        })
       }
       return { acc, i, loop: true }
     }
@@ -53,12 +59,25 @@ function readProgram(inputArray: Array<string>, debug: boolean): { acc: number, 
   return { acc, i, loop: false }
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   const solution = readProgram(inputAsArray, debug)
-  report(`Solution 1${test ? ' (for test input)' : ''}:`, solution.acc.toString())
+  report(
+    `Solution 1${test ? ' (for test input)' : ''}:`,
+    solution.acc.toString()
+  )
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   for (let i = 0; i < inputAsArray.length; i++) {
     const [command, value] = inputAsArray[i].split(' ')
     if (command === 'jmp' || command === 'nop') {
@@ -66,7 +85,10 @@ async function solveForSecondStar(input: string, inputAsArray: Array<any>, test:
       newArray[i] = `${command === 'jmp' ? 'nop' : 'jmp'} ${value}`
       const answer = readProgram(newArray, debug)
       if (!answer.loop) {
-        report(`Solution 2${test ? ' (for test input)' : ''}:`, answer.acc.toString())
+        report(
+          `Solution 2${test ? ' (for test input)' : ''}:`,
+          answer.acc.toString()
+        )
       }
     }
   }

@@ -4,11 +4,10 @@ import { arrToNumberArr, reportGenerator, sortNumbers } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
-  const testInput = '16\n' +
+  const testInput =
+    '16\n' +
     '10\n' +
     '15\n' +
     '5\n' +
@@ -21,7 +20,8 @@ export async function run(day: string) {
     '4'
   const testInputAsArray = testInput.split('\n')
 
-  const testInput2 = '28\n' +
+  const testInput2 =
+    '28\n' +
     '33\n' +
     '18\n' +
     '42\n' +
@@ -65,7 +65,12 @@ export async function run(day: string) {
   await solveForSecondStar(input, inputAsArray, false, false)
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   let oneJoltDiff = 0
   let threeJoltDiff = 1 // because device is always +3 jolts higher
   let startingJoltage = 0
@@ -84,10 +89,18 @@ async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: 
       }
     }
   }
-  report(`Solution 1${test ? ' (for test input)' : ''}:`, (oneJoltDiff * threeJoltDiff).toString())
+  report(
+    `Solution 1${test ? ' (for test input)' : ''}:`,
+    (oneJoltDiff * threeJoltDiff).toString()
+  )
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   console.time('part 2')
   const sort = sortNumbers(arrToNumberArr(inputAsArray))
   const sorted = [0, ...sort, sort[sort.length - 1] + 3]
@@ -124,6 +137,6 @@ async function solveForSecondStar(input: string, inputAsArray: Array<any>, test:
     console.log({ storage })
   }
 
-  report(`Solution 2${test ? ' (for test input)' : ''}:`, (run(0)).toString())
+  report(`Solution 2${test ? ' (for test input)' : ''}:`, run(0).toString())
   console.timeEnd('part 2')
 }

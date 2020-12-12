@@ -4,11 +4,10 @@ import { reportGenerator } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
-  const testInput = 'abc\n' +
+  const testInput =
+    'abc\n' +
     '\n' +
     'a\n' +
     'b\n' +
@@ -33,36 +32,55 @@ export async function run(day: string) {
   await solveForSecondStar(input, inputAsArray, false, false)
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   const solution = input.split('\n\n').reduce((acc, group) => {
-    return acc + group.split('\n').reduce((groupAcc: string[], person) => {
-      person.split('').forEach((q) => {
-        if (!groupAcc.includes(q)) {
-          groupAcc.push(q)
-        }
-      })
-      return groupAcc
-    }, []).length
+    return (
+      acc +
+      group.split('\n').reduce((groupAcc: string[], person) => {
+        person.split('').forEach(q => {
+          if (!groupAcc.includes(q)) {
+            groupAcc.push(q)
+          }
+        })
+        return groupAcc
+      }, []).length
+    )
   }, 0)
   report(`Solution 1${test ? ' (for test input)' : ''}:`, solution.toString())
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
   const solution = input.split('\n\n').reduce((acc, group) => {
     const people = group.split('\n')
-    const qCounts = people.reduce((groupAcc: {[key: string]: number}, person) => {
-      person.split('').forEach((q) => {
-        if (!groupAcc[q]) {
-          groupAcc[q] = 1
-        } else {
-          groupAcc[q] = groupAcc[q] + 1
-        }
-      })
-      return groupAcc
-    }, {})
-    return acc + Object.entries(qCounts).filter(([question, count]) => {
-      return count === people.length
-    }).length
+    const qCounts = people.reduce(
+      (groupAcc: { [key: string]: number }, person) => {
+        person.split('').forEach(q => {
+          if (!groupAcc[q]) {
+            groupAcc[q] = 1
+          } else {
+            groupAcc[q] = groupAcc[q] + 1
+          }
+        })
+        return groupAcc
+      },
+      {}
+    )
+    return (
+      acc +
+      Object.entries(qCounts).filter(([question, count]) => {
+        return count === people.length
+      }).length
+    )
   }, 0)
   report(`Solution 1${test ? ' (for test input)' : ''}:`, solution.toString())
 }

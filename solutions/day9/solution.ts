@@ -4,11 +4,10 @@ import { reportGenerator } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
-  const testInput = '35\n' +
+  const testInput =
+    '35\n' +
     '20\n' +
     '15\n' +
     '25\n' +
@@ -60,14 +59,32 @@ function findWrongNumber(preamble: number, input: number[]): number {
   return -1
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean, preamble: number) {
-  report(`Solution 1${test ? ' (for test input)' : ''}:`, findWrongNumber(preamble, inputAsArray.map(n => Number(n))).toString())
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean,
+  preamble: number
+) {
+  report(
+    `Solution 1${test ? ' (for test input)' : ''}:`,
+    findWrongNumber(
+      preamble,
+      inputAsArray.map(n => Number(n))
+    ).toString()
+  )
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean, preamble: number) {
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean,
+  preamble: number
+) {
   const inputAsNumberArray = inputAsArray.map(n => Number(n))
   const wrongNumber = findWrongNumber(preamble, inputAsNumberArray)
-  const inputAsNumberArrayWithHoles = inputAsNumberArray.map((n) => {
+  const inputAsNumberArrayWithHoles = inputAsNumberArray.map(n => {
     if (n > wrongNumber) {
       return null
     } else {
@@ -90,7 +107,13 @@ async function solveForSecondStar(input: string, inputAsArray: Array<any>, test:
           if (debug) {
             console.log(values)
           }
-          return report(`Solution 2${ test ? ' (for test input)' : '' }:`, `${ Math.min(...values as number[]) + Math.max(...values as number[]) }`)
+          return report(
+            `Solution 2${test ? ' (for test input)' : ''}:`,
+            `${
+              Math.min(...(values as number[])) +
+              Math.max(...(values as number[]))
+            }`
+          )
         } else if (sum > wrongNumber) {
           break
         }

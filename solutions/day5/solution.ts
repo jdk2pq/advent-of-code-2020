@@ -4,9 +4,7 @@ import { reportGenerator } from '../../util'
 const report = reportGenerator(__filename)
 
 export async function run(day: string) {
-  const input = (
-    await read(`solutions/${day}/input.txt`, 'utf8')
-  ).trim()
+  const input = (await read(`solutions/${day}/input.txt`, 'utf8')).trim()
 
   const testInput = 'FBFBBFFRLR'
   const testInput2 = 'BFFFBBFRRR'
@@ -31,7 +29,8 @@ function decodeId(input, debug) {
   }
   const firstSeven = input.slice(0, 8)
   const lastThree = input.slice(7)
-  let start = 0, end = 127
+  let start = 0,
+    end = 127
   const firstSevenSplit = firstSeven.split('')
   const lastThreeSplit = lastThree.split('')
   let row, column
@@ -49,7 +48,8 @@ function decodeId(input, debug) {
     }
   })
 
-  let lastThreeStart = 0, lastThreeEnd = 7
+  let lastThreeStart = 0,
+    lastThreeEnd = 7
 
   lastThreeSplit.forEach((rightOrLeft, idx) => {
     if (idx === lastThreeSplit.length - 1) {
@@ -59,9 +59,11 @@ function decodeId(input, debug) {
         column = lastThreeEnd
       }
     } else if (rightOrLeft === 'L') {
-      lastThreeEnd = lastThreeEnd - Math.floor((lastThreeEnd - lastThreeStart + 1) / 2)
+      lastThreeEnd =
+        lastThreeEnd - Math.floor((lastThreeEnd - lastThreeStart + 1) / 2)
     } else {
-      lastThreeStart = lastThreeStart + Math.floor((lastThreeEnd - lastThreeStart + 1) / 2)
+      lastThreeStart =
+        lastThreeStart + Math.floor((lastThreeEnd - lastThreeStart + 1) / 2)
     }
     if (debug) {
       console.log({ lastThreeStart, lastThreeEnd })
@@ -74,18 +76,38 @@ function decodeId(input, debug) {
   return seatId
 }
 
-async function solveForFirstStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
-  const values = inputAsArray.map((value) => Number(decodeId(value, debug)))
-  report(`Solution 1${test ? ' (for test input)' : ''}:`, Math.max(...values).toString())
+async function solveForFirstStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
+  const values = inputAsArray.map(value => Number(decodeId(value, debug)))
+  report(
+    `Solution 1${test ? ' (for test input)' : ''}:`,
+    Math.max(...values).toString()
+  )
 }
 
-async function solveForSecondStar(input: string, inputAsArray: Array<any>, test: boolean, debug: boolean) {
-  const values = inputAsArray.map((value) => Number(decodeId(value, debug)))
+async function solveForSecondStar(
+  input: string,
+  inputAsArray: Array<any>,
+  test: boolean,
+  debug: boolean
+) {
+  const values = inputAsArray.map(value => Number(decodeId(value, debug)))
   for (let i = 0; i < 128; i++) {
     for (let j = 0; j < 8; j++) {
       const seatId = i * 8 + j
-      if (!values.includes(seatId) && values.includes(seatId + 1) && values.includes(seatId - 1)) {
-        return report(`Solution 2${test ? ' (for test input)' : ''}:`, seatId.toString())
+      if (
+        !values.includes(seatId) &&
+        values.includes(seatId + 1) &&
+        values.includes(seatId - 1)
+      ) {
+        return report(
+          `Solution 2${test ? ' (for test input)' : ''}:`,
+          seatId.toString()
+        )
       }
     }
   }
