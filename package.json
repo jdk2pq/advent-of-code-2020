@@ -9,7 +9,7 @@
     "start": "ts-node run.ts",
     "webserver": "ts-node solutions/viewer-server.ts"
   },
-  "author": "John Beech, Michael Gardner",
+  "author": "Jake Kenneally, John Beech, Michael Gardner",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
