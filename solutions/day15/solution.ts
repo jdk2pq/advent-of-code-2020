@@ -42,14 +42,21 @@ export async function run(day: string) {
 // turns out that's not the case. This finishes in about 10 seconds...
 function playGame(input: number[], debug: boolean, max: number) {
   let lastNumberSpoken = -1
-  const timesSpoken: Map<number, { last: number, beforeLast: number, times: number }> = new Map()
+  const timesSpoken: Map<
+    number,
+    { last: number; beforeLast: number; times: number }
+  > = new Map()
   for (let i = 0; i < max; i++) {
     const turn = i + 1
     let number
     if (i < input.length) {
       number = input[i]
     } else {
-      const value = timesSpoken.get(lastNumberSpoken) as { last: number, beforeLast: number, times: number }
+      const value = timesSpoken.get(lastNumberSpoken) as {
+        last: number
+        beforeLast: number
+        times: number
+      }
 
       if (value.times === 1) {
         number = 0
@@ -64,7 +71,11 @@ function playGame(input: number[], debug: boolean, max: number) {
         times: 1
       })
     } else {
-      const value= timesSpoken.get(number) as { last: number, beforeLast: number, times: number }
+      const value = timesSpoken.get(number) as {
+        last: number
+        beforeLast: number
+        times: number
+      }
 
       timesSpoken.set(number, {
         beforeLast: value.last,
@@ -107,25 +118,26 @@ function playGameSimpler(input: number[], debug: boolean, max: number) {
 }
 
 function solve(input, limit) {
-  let indexes: Map<number, number> = new Map(input.map((value, index) => [value, index + 1]));
-  let bucket = NaN;
-  let target = input[input.length - 1];
+  let indexes: Map<number, number> = new Map(
+    input.map((value, index) => [value, index + 1])
+  )
+  let bucket = NaN
+  let target = input[input.length - 1]
   for (let index = input.length; index < limit; index++) {
-    target = (indexes.has(target) ? index - (indexes.get(target) as number) : 0);
-    indexes.set(bucket, index);
-    bucket = target;
+    target = indexes.has(target) ? index - (indexes.get(target) as number) : 0
+    indexes.set(bucket, index)
+    bucket = target
   }
-  return target;
+  return target
 }
 
-async function solveForFirstStar(
-  input: string,
-  test: boolean,
-  debug: boolean
-) {
+async function solveForFirstStar(input: string, test: boolean, debug: boolean) {
   console.time('part 1')
   const solution = 'UNSOLVED'
-  report(`Solution 1${test ? ' (for test input)' : ''}:`, playGame(input.split(',').map(Number), debug, 2020).toString())
+  report(
+    `Solution 1${test ? ' (for test input)' : ''}:`,
+    playGame(input.split(',').map(Number), debug, 2020).toString()
+  )
   console.timeEnd('part 1')
 }
 
@@ -136,6 +148,9 @@ async function solveForSecondStar(
 ) {
   console.time('part 2')
   const solution = 'UNSOLVED'
-  report(`Solution 2${test ? ' (for test input)' : ''}:`, playGameSimpler(input.split(',').map(Number), false, 30000000).toString())
+  report(
+    `Solution 2${test ? ' (for test input)' : ''}:`,
+    playGameSimpler(input.split(',').map(Number), false, 30000000).toString()
+  )
   console.timeEnd('part 2')
 }

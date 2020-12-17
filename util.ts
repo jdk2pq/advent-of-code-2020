@@ -24,7 +24,7 @@ export const replaceInFile = async (
 }
 
 export const arrToNumberArr = (arr: Array<string>): Array<number> => {
-  return arr.map(num => Number(num))
+  return arr.map(Number)
 }
 
 export const sortNumbers = (arr: Array<number>): Array<number> => {
